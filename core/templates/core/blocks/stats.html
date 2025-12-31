@@ -1,0 +1,10 @@
+<section class="stats">
+  <div class="stats__inner">
+    {% for s in self.items %}
+      <div class="stat">
+        <div class="stat__value">{{ s.value }}</div>
+        <div class="stat__label muted">{{ s.label }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</section>

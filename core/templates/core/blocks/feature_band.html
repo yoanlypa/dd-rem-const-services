@@ -1,0 +1,23 @@
+{% load wagtailimages_tags %}
+<section class="band">
+  <div class="band__inner">
+    <div class="band__media">
+      {% if self.image %}
+        {% image self.image fill-760x460 class="band__img" %}
+      {% endif %}
+      <div class="band__badge">
+        <div class="band__badgeValue">{{ self.badge_value }}</div>
+        <div class="band__badgeLabel">{{ self.badge_label }}</div>
+      </div>
+    </div>
+
+    <div class="band__content">
+      {% if self.eyebrow %}<div class="band__eyebrow">{{ self.eyebrow }}</div>{% endif %}
+      <h2 class="band__title">{{ self.title }}</h2>
+      {% if self.text %}<p class="band__text">{{ self.text }}</p>{% endif %}
+      {% if self.button %}
+        <a class="btn btn--outline" href="{{ self.button.url }}">{{ self.button.text }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>

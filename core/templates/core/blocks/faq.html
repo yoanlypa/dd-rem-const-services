@@ -1,0 +1,28 @@
+{% load wagtailimages_tags %}
+<section class="faq" aria-label="FAQ">
+  <div class="faq__inner">
+    <div class="faq__panel">
+      {% if self.title %}<h2 class="faq__title">{{ self.title }}</h2>{% endif %}
+
+      <div class="accordion" data-accordion>
+        {% for item in self.items %}
+          <div class="accItem">
+            <button class="accBtn" type="button" data-acc-btn aria-expanded="false">
+              <span>{{ item.question }}</span>
+              <span class="accIcon">+</span>
+            </button>
+            <div class="accBody" data-acc-body hidden>
+              <div class="accBody__inner muted">{{ item.answer }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="faq__media">
+      {% if self.image %}
+        {% image self.image fill-640x520 class="faq__img" %}
+      {% endif %}
+    </div>
+  </div>
+</section>

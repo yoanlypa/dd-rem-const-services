@@ -1,0 +1,23 @@
+{% load wagtailimages_tags %}
+<section class="values" id="services">
+  <div class="values__inner">
+    {% if self.title %}<h2 class="values__title">{{ self.title }}</h2>{% endif %}
+
+    <div class="values__grid">
+      {% for card in self.cards %}
+        <article class="vCard">
+          {% if card.image %}
+            <div class="vCard__imgWrap">
+              {% image card.image fill-520x420 class="vCard__img" %}
+            </div>
+          {% endif %}
+          <div class="vCard__body">
+            <div class="vCard__title">{{ card.title }}</div>
+            {% if card.text %}<div class="vCard__text muted">{{ card.text }}</div>{% endif %}
+            <a class="vCard__link" href="#">View details →</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

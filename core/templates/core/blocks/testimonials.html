@@ -1,0 +1,33 @@
+{% load wagtailimages_tags %}
+<section class="testimonials" aria-label="Testimonials">
+  <div class="testimonials__inner">
+    {% if self.title %}<h2 class="testimonials__title">{{ self.title }}</h2>{% endif %}
+
+    <div class="tSlider" data-slider>
+      <button class="tSlider__btn" type="button" data-prev aria-label="Previous testimonial">‹</button>
+
+      <div class="tSlider__viewport">
+        <div class="tSlider__track" data-track>
+          {% for t in self.items %}
+            <article class="tCard" data-slide>
+              <div class="tCard__quote">“{{ t.quote }}”</div>
+              <div class="tCard__author">
+                {% if t.avatar %}
+                  {% image t.avatar fill-80x80 class="tCard__avatar" %}
+                {% else %}
+                  <div class="tCard__avatar tCard__avatar--placeholder"></div>
+                {% endif %}
+                <div>
+                  <div class="tCard__name">{{ t.author_name }}</div>
+                  {% if t.author_role %}<div class="tCard__role muted">{{ t.author_role }}</div>{% endif %}
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+
+      <button class="tSlider__btn" type="button" data-next aria-label="Next testimonial">›</button>
+    </div>
+  </div>
+</section>

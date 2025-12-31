@@ -1,0 +1,16 @@
+{% load wagtailimages_tags %}
+<section class="hero" id="top">
+  <div class="hero__content">
+    <h1>{{ self.headline }}</h1>
+    {% if self.subheadline %}<p class="muted">{{ self.subheadline }}</p>{% endif %}
+    {% if self.primary_button %}
+      <a class="btn" href="{{ self.primary_button.url }}">{{ self.primary_button.text }}</a>
+    {% endif %}
+  </div>
+
+  <div class="hero__collage">
+    {% if self.image_1 %}{% image self.image_1 fill-560x560 class="hero__img hero__img--a" %}{% endif %}
+    {% if self.image_2 %}{% image self.image_2 fill-240x240 class="hero__img hero__img--b" %}{% endif %}
+    {% if self.image_3 %}{% image self.image_3 fill-460x320 class="hero__img hero__img--c" %}{% endif %}
+  </div>
+</section>

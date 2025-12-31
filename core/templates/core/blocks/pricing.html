@@ -1,0 +1,45 @@
+<section class="pricing" id="pricing">
+  <div class="pricing__inner">
+    <div class="pricing__copy">
+      <h2>{{ self.title }}</h2>
+      {% if self.text %}<p class="muted">{{ self.text }}</p>{% endif %}
+
+      {% if self.helper_title or self.helper_text or self.helper_phone %}
+        <div class="pricing__helper">
+          {% if self.helper_title %}<div class="pricing__helperTitle">{{ self.helper_title }}</div>{% endif %}
+          {% if self.helper_text %}<div class="pricing__helperText muted">{{ self.helper_text }}</div>{% endif %}
+          {% if self.helper_phone %}<div class="pricing__helperPhone">{{ self.helper_phone }}</div>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="pricing__cards">
+      {% for plan in self.plans %}
+        <article class="plan {% if plan.is_recommended %}plan--recommended{% endif %}">
+          {% if plan.is_recommended %}
+            <div class="plan__ribbon">RECOMMENDED</div>
+          {% endif %}
+
+          <div class="plan__name">{{ plan.name }}</div>
+
+          <div class="plan__priceRow">
+            <div class="plan__price">{{ plan.price }}</div>
+            {% if plan.period %}<div class="plan__period">/ {{ plan.period }}</div>{% endif %}
+          </div>
+
+          {% if plan.features %}
+            <ul class="plan__features">
+              {% for f in plan.features %}
+                <li>{{ f }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if plan.button %}
+            <a class="btn btn--ghostWide" href="{{ plan.button.url }}">{{ plan.button.text }}</a>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

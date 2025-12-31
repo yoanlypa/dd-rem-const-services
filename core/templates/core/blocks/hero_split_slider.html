@@ -1,0 +1,165 @@
+{% load wagtailimages_tags wagtailsettings_tags %}
+
+{% get_settings use_default_site=True %}
+{% with chrome=settings.core.SiteChromeSettings %}
+
+<section class="heroSS" id="top"
+  data-hero-slider
+  data-autoplay="{{ self.autoplay|yesno:'1,0' }}"
+  data-interval="{{ self.autoplay_seconds|default:6 }}"
+>
+ {% if chrome.show_mobile_header %}
+  <header class="mHeader" data-mobile-header>
+    <a class="mHeader__logo" href="/" aria-label="Home">
+      {% if chrome.logo_mobile %}
+        {% image chrome.logo_mobile max-220x80 class="mHeader__img" %}
+      {% elif chrome.logo_desktop %}
+        {% image chrome.logo_desktop max-220x80 class="mHeader__img" %}
+      {% else %}
+        <span class="mHeader__fallback">master.builder</span>
+      {% endif %}
+    </a>
+
+    <button class="mHeader__burger"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            data-burger>
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="mDrawer" aria-hidden="true" data-drawer>
+    <div class="mDrawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+
+      <div class="mDrawer__top">
+        <div class="mDrawer__brand">
+          {% if chrome.logo_mobile %}
+            {% image chrome.logo_mobile max-220x80 %}
+          {% elif chrome.logo_desktop %}
+            {% image chrome.logo_desktop max-220x80 %}
+          {% else %}
+            <strong>master.builder</strong>
+          {% endif %}
+        </div>
+        <button class="mDrawer__close"
+                type="button"
+                aria-label="Close menu"
+                data-close>×</button>
+      </div>
+
+      <nav class="mDrawer__nav">
+        {% for block in chrome.navigation %}
+          <a href="{{ block.value.href }}"
+             class="mDrawer__link"
+             data-drawer-link>
+            {{ block.value.label }}
+          </a>
+        {% endfor %}
+      </nav>
+
+      {% if chrome.show_mobile_support %}
+      <div class="mDrawer__support">
+        <div class="mDrawer__supportLabel">{{ chrome.support_label }}</div>
+        <div class="mDrawer__supportPhone">{{ chrome.support_phone }}</div>
+      </div>
+      {% endif %}
+
+    </div>
+    <div class="mDrawer__backdrop" data-backdrop></div>
+  </div>
+  {% endif %}
+
+ <aside class="heroSS__side" aria-label="Site navigation">
+
+    <div class="heroSS__brand">
+      {% if chrome.logo_desktop %}
+        {% image chrome.logo_desktop max-240x90 class="heroSS__logo" %}
+      {% else %}
+        <span class="heroSS__brandText">master.builder</span>
+      {% endif %}
+    </div>
+
+    <nav class="heroSS__menu">
+      {% for block in chrome.navigation %}
+        <a class="heroSS__link"
+           href="{{ block.value.href }}">
+          {{ block.value.label }}
+        </a>
+      {% endfor %}
+    </nav>
+
+    <div class="heroSS__copy">
+      <h1 class="heroSS__h1">{{ self.headline }}</h1>
+
+      {% if self.subheadline %}
+        <p class="heroSS__p">{{ self.subheadline }}</p>
+      {% endif %}
+
+      {% if self.cta_url %}
+        <a class="btn heroSS__cta"
+           href="{{ self.cta_url }}">
+          {{ self.cta_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="heroSS__support">
+      <div class="heroSS__supportLabel">{{ chrome.support_label }}</div>
+      <div class="heroSS__supportPhone">{{ chrome.support_phone }}</div>
+    </div>
+
+  </aside>
+  <div class="heroSS__stage" aria-label="Hero image slider">
+
+    <div class="heroSS__slides" data-slides>
+      {% for s in self.slides %}
+        <div class="heroSS__slide"
+             data-slide
+             aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+          {% image s.image fill-2200x1400 class="heroSS__img" alt=s.alt %}
+          <div class="heroSS__overlay" aria-hidden="true"></div>
+
+          {% if s.eyebrow or s.title %}
+          <div class="heroSS__caption">
+            {% if s.eyebrow %}
+              <div class="heroSS__eyebrow">{{ s.eyebrow }}</div>
+            {% endif %}
+            {% if s.title %}
+              <div class="heroSS__title">{{ s.title }}</div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if self.show_arrows %}
+      <button class="heroSS__btn heroSS__btn--prev"
+              type="button"
+              data-prev
+              aria-label="Previous slide">‹</button>
+
+      <button class="heroSS__btn heroSS__btn--next"
+              type="button"
+              data-next
+              aria-label="Next slide">›</button>
+    {% endif %}
+
+    {% if self.show_dots %}
+      <div class="heroSS__dots" data-dots aria-label="Slide navigation">
+        {% for _ in self.slides %}
+          <button class="heroSS__dot"
+                  type="button"
+                  data-dot
+                  aria-label="Go to slide {{ forloop.counter }}">
+          </button>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>
+
+{% endwith %}
