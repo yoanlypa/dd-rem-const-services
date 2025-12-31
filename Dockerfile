@@ -15,7 +15,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Collectstatic en build (opcional, yo prefiero ejecutarlo en Release Command en Railway)
-# RUN python manage.py collectstatic --noinput
-
-CMD gunicorn builder_site.wsgi:application --bind 0.0.0.0:${PORT:-8000}
+# Railway inyecta PORT. En local usará 8000.
+CMD ["sh", "-c", "gunicorn master_builder.wsgi:application --bind 0.0.0.0:${PORT:-8000}"]
