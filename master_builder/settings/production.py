@@ -2,7 +2,7 @@ import os
 from .base import *
 import dj_database_url
 
-DEBUG = os.getenv("DEBUG", "0") == "1"
+DEBUG = True
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
