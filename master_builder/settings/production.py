@@ -2,11 +2,13 @@ import os
 from .base import *
 import dj_database_url
 
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = [h.strip() for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h.strip()]
+if not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ["dd-rem-const-services-production.up.railway.app"]
 
 DATABASES = {
     "default": dj_database_url.config(
