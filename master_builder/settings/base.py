@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "wagtail",
     "modelcluster",
     "taggit",
+    "cloudinary",
+    "cloudinary_storage",
     "django_filters",
     "django.contrib.admin",
     "django.contrib.auth",
