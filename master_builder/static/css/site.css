@@ -502,7 +502,7 @@ a{ color:inherit; }
 .mDrawer{
   position: fixed;
   inset: 0;
-  z-index: 70;
+  z-index: 100;
   pointer-events: none;
 }
 
@@ -512,6 +512,7 @@ a{ color:inherit; }
   background: rgba(0,0,0,.38);
   opacity: 0;
   transition: opacity var(--dur) var(--ease);
+  z-index: 10
 }
 
 .mDrawer__panel{
