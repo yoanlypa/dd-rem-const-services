@@ -1,4 +1,3 @@
-import os
 from .base import *
 import dj_database_url
 
@@ -23,6 +22,7 @@ DATABASES = {
         ssl_require=False,  # Railway internal connection; keep False unless you use public proxy
     )
 }
+
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
