@@ -134,18 +134,44 @@ STATICFILES_DIRS = [
     PROJECT_DIR / "static",
 ]
 
-# WhiteNoise + Manifest storage for cache-busting
+# -----------------------------
+# Media (Cloudinary)
+# -----------------------------
+MEDIA_URL = "/media/"  # Wagtail will store absolute URLs from Cloudinary internally
+MEDIA_ROOT = BASE_DIR / "media"  # kept for local dev fallback
+
+CLOUDINARY_CLOUD_NAME = os.getenv("CLOUDINARY_CLOUD_NAME", "").strip()
+CLOUDINARY_API_KEY = os.getenv("CLOUDINARY_API_KEY", "").strip()
+CLOUDINARY_API_SECRET = os.getenv("CLOUDINARY_API_SECRET", "").strip()
+CLOUDINARY_FOLDER = os.getenv("CLOUDINARY_FOLDER", "master_builder").strip()
+
+# Only configure Cloudinary if creds exist (so local dev won't break)
+USE_CLOUDINARY = all([CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET])
+
+if USE_CLOUDINARY:
+    CLOUDINARY_STORAGE = {
+        "CLOUD_NAME": CLOUDINARY_CLOUD_NAME,
+        "API_KEY": CLOUDINARY_API_KEY,
+        "API_SECRET": CLOUDINARY_API_SECRET,
+        "SECURE": True,
+    }
+
+# -----------------------------
+# Static (WhiteNoise) + Storages
+# -----------------------------
 STORAGES = {
-    "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"
+        if USE_CLOUDINARY
+        else "django.core.files.storage.FileSystemStorage",
+    },
 }
 
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media/"
+# Optional: prevent crash if a static file is missing from manifest
+WHITENOISE_MANIFEST_STRICT = False
 
 
 
@@ -153,9 +179,6 @@ MEDIA_URL = "/media/"
 # can exceed this limit within Wagtail's page editor.
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 
-# Optional but recommended: keep WhiteNoise from throwing if a manifest entry is missing.
-# This prevents hard crashes when a referenced static file isn't found in the manifest.
-WHITENOISE_MANIFEST_STRICT = False
 
 # Wagtail settings
 
