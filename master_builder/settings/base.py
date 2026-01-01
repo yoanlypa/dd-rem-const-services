@@ -127,10 +127,21 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Your project-level static folder: PROJECT_DIR/static/...
+STATICFILES_DIRS = [
+    PROJECT_DIR / "static",
+]
+
+# WhiteNoise + Manifest storage for cache-busting
 STORAGES = {
-    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
-    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
 }
+
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
@@ -140,6 +151,9 @@ MEDIA_URL = "/media/"
 # can exceed this limit within Wagtail's page editor.
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 
+# Optional but recommended: keep WhiteNoise from throwing if a manifest entry is missing.
+# This prevents hard crashes when a referenced static file isn't found in the manifest.
+WHITENOISE_MANIFEST_STRICT = False
 
 # Wagtail settings
 
