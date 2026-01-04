@@ -648,3 +648,35 @@ a{ color:inherit; }
   .mDrawer__panel, .mDrawer__backdrop{ transition:none; }
   .heroSS__link, .mDrawer__link, .btn{ transition:none; }
 }
+
+
+/* HERO Split Slider (Bootstrap-friendly) */
+
+.hero-ss-stage { overflow: hidden; }
+
+.hero-ss-img {
+  object-fit: cover;
+  display: block;
+}
+
+.hero-ss-overlay {
+  background: rgba(0,0,0,.35);
+}
+
+.hero-ss-slide {
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.hero-ss-slide.is-active {
+  opacity: 1;
+}
+
+/* Optional: make nav links look closer to your previous design */
+.hero-ss-link {
+  color: inherit;
+}
+.hero-ss-link:hover {
+  text-decoration: underline;
+}
+
