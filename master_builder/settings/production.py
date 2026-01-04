@@ -2,12 +2,30 @@ import os
 from .base import *  # noqa
 import dj_database_url
 
+<<<<<<< HEAD
 
 # -------------------------------------------------------------------
 # Core production flags
 # -------------------------------------------------------------------
 DEBUG = os.getenv("DEBUG", "0").strip().lower() in ("1", "true", "yes", "on")
 
+=======
+DEBUG = True
+
+SECRET_KEY = os.getenv("SECRET_KEY", "")
+if not SECRET_KEY:
+    raise RuntimeError("Missing SECRET_KEY environment variable")
+
+ALLOWED_HOSTS = [h.strip() for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h.strip()]
+if not ALLOWED_HOSTS:
+    # Railway domain will be enforced by you in variables; this is a safe fallback.
+    ALLOWED_HOSTS = ["*"]
+
+# Railway should provide DATABASE_URL when Postgres is attached
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+if not DATABASE_URL:
+    raise RuntimeError("Missing DATABASE_URL. Add/attach a PostgreSQL database in Railway to this service.")
+>>>>>>> 5e3ed98 (Add Bootstrap assets)
 
 SECRET_KEY = os.getenv("SECRET_KEY", "").strip()
 if not SECRET_KEY:
@@ -59,6 +77,7 @@ DATABASES = {
     "default": dj_database_url.parse(
         DATABASE_URL,
         conn_max_age=600,
+<<<<<<< HEAD
         ssl_require=False,
     )
 }
@@ -79,3 +98,12 @@ CSRF_COOKIE_SECURE = os.getenv("CSRF_COOKIE_SECURE", "1").strip().lower() in ("1
 # Wagtail admin base URL (set it to your real URL)
 # -------------------------------------------------------------------
 WAGTAILADMIN_BASE_URL = os.getenv("WAGTAILADMIN_BASE_URL", "").strip() or WAGTAILADMIN_BASE_URL
+=======
+        ssl_require=True,
+    )
+}
+
+# Minimal proxy/https settings on Railway
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+CSRF_TRUSTED_ORIGINS = ["https://*.railway.app"]
+>>>>>>> 5e3ed98 (Add Bootstrap assets)
