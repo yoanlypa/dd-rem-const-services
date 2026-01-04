@@ -10,9 +10,6 @@
   data-interval="{{ self.autoplay_seconds|default:6 }}"
 >
 
-  {# ----------------------------
-     Mobile header (Bootstrap)
-     ---------------------------- #}
   {% if chrome.show_mobile_header %}
   <header class="d-lg-none border-bottom bg-white position-sticky top-0 z-3" data-mobile-header>
     <div class="container-fluid py-2 d-flex align-items-center justify-content-between">
@@ -73,9 +70,7 @@
   </div>
   {% endif %}
 
-  {# ----------------------------
-     Desktop split layout
-     ---------------------------- #}
+
   <div class="container-fluid px-0">
     <div class="row g-0 min-vh-100">
 
