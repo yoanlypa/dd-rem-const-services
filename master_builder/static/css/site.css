@@ -661,3 +661,69 @@ a{ color:inherit; }
   .mDrawer__panel, .mDrawer__backdrop{ transition:none; }
   .heroSS__link, .mDrawer__link, .c-btn{ transition:none; }
 }
+
+/* Bootstrap hero split slider (matches hero_split_slider.html) */
+.hero-ss-stage { overflow: hidden; background:#0b1220; }
+
+.hero-ss-slides { position: absolute; inset: 0; }
+
+.hero-ss-slide{
+  opacity: 0;
+  transition: opacity .55s ease;
+  pointer-events: none;
+}
+
+.hero-ss-slide.is-active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-ss-img{
+  object-fit: cover;
+  display: block;
+}
+
+.hero-ss-overlay{
+  background: rgba(0,0,0,.35);
+}
+
+/* Minimal arrows + dots (avoid your custom .btn look) */
+.hero-ss-btn,
+.hero-ss-dot{
+  background: rgba(0,0,0,.18) !important;
+  border: 1px solid rgba(255,255,255,.22) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.hero-ss-btn{
+  width: 42px;
+  height: 42px;
+  border-radius: 999px !important;
+  display: grid;
+  place-items: center;
+  opacity: .9;
+  transition: transform .18s ease, background .18s ease, opacity .18s ease;
+}
+
+.hero-ss-btn:hover{
+  background: rgba(0,0,0,.30) !important;
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+.hero-ss-dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px !important;
+  padding: 0 !important;
+  opacity: .75;
+}
+
+.hero-ss-dot.is-active{
+  background: rgba(255,255,255,.92) !important;
+  border-color: rgba(255,255,255,.92) !important;
+  opacity: 1;
+  transform: scale(1.15);
+}
+
