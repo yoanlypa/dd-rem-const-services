@@ -798,6 +798,6 @@ a{ color:inherit; }
 /* Optional fine tuning for very small phones */
 @media (max-width: 480px){
   .hero-ss-stage{
-    height: calc(100vh - 160px);
+    height: calc(100vh - 180px);
   }
 }
