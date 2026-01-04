@@ -750,3 +750,13 @@ a{ color:inherit; }
   }
 }
 
+@media (max-width: 1023px){
+  /* Height of your mobile header (ajusta si tu header cambia) */
+  :root { --mobile-header-h: 72px; }
+
+  .hero-ss-stage{
+    height: calc(100dvh - var(--mobile-header-h));
+    height: calc(100svh - var(--mobile-header-h));
+    height: calc(100vh - var(--mobile-header-h));
+  }
+}
