@@ -10,7 +10,7 @@
   --brand-soft: rgba(37,99,235,.14);
 
   /* Accent (secondary) */
-  --accent: #f59e0b;     /* amber-500 (opcional) */
+  --accent: #f59e0b;     /* amber-500 (optional) */
 
   --dark:#0b1220;
   --card:#ffffff;
@@ -44,8 +44,11 @@ img{ max-width:100%; height:auto; }
 a{ color:inherit; }
 .muted{ color:var(--muted); }
 
-/* Buttons */
-.btn{
+
+/* ==========================================================
+   CUSTOM BUTTONS (renamed to avoid breaking Bootstrap)
+   ========================================================== */
+.c-btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -62,26 +65,29 @@ a{ color:inherit; }
   box-shadow: 0 10px 28px rgba(37,99,235,.18);
   transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease);
 }
-.btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
-.btn:active{ transform: translateY(0); }
-.btn:focus-visible{
+.c-btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+.c-btn:active{ transform: translateY(0); }
+.c-btn:focus-visible{
   outline:none;
   box-shadow: 0 0 0 4px var(--ring), 0 10px 28px rgba(37,99,235,.18);
 }
 
-/* Optional ghost variant if you use it */
-.btn--ghost{
+/* Optional ghost variant */
+.c-btn--ghost{
   background: rgba(255,255,255,.75);
   color: var(--ink);
   border: 1px solid rgba(15,23,42,.10);
   box-shadow: none;
 }
-.btn--ghost:hover{
+.c-btn--ghost:hover{
   background: #fff;
   box-shadow: 0 10px 28px rgba(2,6,23,.08);
 }
 
-/* Legacy header (if you keep it on other pages) */
+
+/* ==========================================================
+   Legacy header (if you keep it on other pages)
+   ========================================================== */
 .header{
   max-width:var(--max);
   margin:0 auto;
@@ -131,6 +137,7 @@ a{ color:inherit; }
 .header__right{ display:flex; align-items:center; gap:14px; }
 .header__phone small{ display:block; font-size:11px; color:var(--muted); }
 .header__phone span{ font-size:13px; font-weight:800; }
+
 
 /* ==========================================================
    HERO (old collage hero — keep if used by other blocks)
@@ -197,9 +204,9 @@ a{ color:inherit; }
   .header__nav{ display:none; }
 }
 
+
 /* ==========================================================
    HERO SPLIT SLIDER (Desktop sidebar + full-height stage)
-   Cleaned + no duplicates
    ========================================================== */
 .heroSS{
   width: 100%;
@@ -394,32 +401,35 @@ a{ color:inherit; }
   color: #0b1220;
 }
 
-/* Arrows (one each side) */
+/* Arrows (minimal, no blue) */
 .heroSS__btn{
   position:absolute;
   top:50%;
   transform: translateY(-50%);
   z-index:6;
 
-  width:46px;
-  height:46px;
+  width:42px;
+  height:42px;
   border-radius:999px;
   border: 1px solid rgba(255,255,255,.22);
-  background: rgba(15,23,42,.34);
+  background: rgba(0,0,0,.18);
   backdrop-filter: blur(10px);
   color:#fff;
-  font-size:22px;
+  font-size:20px;
   cursor:pointer;
   display:grid;
   place-items:center;
-  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, opacity .18s ease;
+  opacity: .9;
 }
-
 .heroSS__btn:hover{
-  background: rgba(15,23,42,.55);
-  transform: translateY(-50%) scale(1.04);
+  background: rgba(0,0,0,.30);
+  transform: translateY(-50%) scale(1.06);
+  opacity: 1;
 }
-
+.heroSS__btn:active{
+  transform: translateY(-50%) scale(1.00);
+}
 .heroSS__btn:focus-visible{
   outline:none;
   box-shadow: 0 0 0 4px var(--ring);
@@ -428,7 +438,7 @@ a{ color:inherit; }
 .heroSS__btn--prev{ left: 18px; }
 .heroSS__btn--next{ right: 18px; }
 
-/* Dots */
+/* Dots (minimal, no blue) */
 .heroSS__dots{
   position:absolute;
   right: 18px;
@@ -445,17 +455,23 @@ a{ color:inherit; }
   border: 1px solid rgba(255,255,255,.35);
   background: rgba(255,255,255,.18);
   cursor:pointer;
-  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+  opacity: .85;
 }
-.heroSS__dot:hover{ transform: scale(1.12); }
+.heroSS__dot:hover{ transform: scale(1.12); opacity: 1; }
 
 .heroSS__dot.is-active{
-  background: rgba(37,99,235,.95);
-  border-color: rgba(37,99,235,1);
+  background: rgba(255,255,255,.92);
+  border-color: rgba(255,255,255,.92);
+  transform: scale(1.15);
+  opacity: 1;
 }
 
+
 /* ==========================================================
-   MOBILE HEADER + DRAWER (with better animations)
+   MOBILE HEADER + DRAWER (legacy drawer if still used)
+   Note: if you switched to Bootstrap Offcanvas, you can remove
+   this section later.
    ========================================================== */
 .mHeader{
   display:none;
@@ -512,7 +528,7 @@ a{ color:inherit; }
   background: rgba(0,0,0,.38);
   opacity: 0;
   transition: opacity var(--dur) var(--ease);
-  z-index: 10
+  z-index: 10;
 }
 
 .mDrawer__panel{
@@ -613,9 +629,6 @@ a{ color:inherit; }
   .heroSS__stage{ height: 70vh; }
 }
 
-/* If you prefer stage full screen on mobile, set to 100vh instead */
-/* @media (max-width: 1023px){ .heroSS__stage{ height: 100vh; } } */
-
 /* Footer */
 .footer{
   margin-top:60px;
@@ -646,37 +659,5 @@ a{ color:inherit; }
   .hero__img{ animation: none; opacity: 1; transform: none; }
   .heroSS__slide{ transition:none; }
   .mDrawer__panel, .mDrawer__backdrop{ transition:none; }
-  .heroSS__link, .mDrawer__link, .btn{ transition:none; }
+  .heroSS__link, .mDrawer__link, .c-btn{ transition:none; }
 }
-
-
-/* HERO Split Slider (Bootstrap-friendly) */
-
-.hero-ss-stage { overflow: hidden; }
-
-.hero-ss-img {
-  object-fit: cover;
-  display: block;
-}
-
-.hero-ss-overlay {
-  background: rgba(0,0,0,.35);
-}
-
-.hero-ss-slide {
-  opacity: 0;
-  transition: opacity .35s ease;
-}
-
-.hero-ss-slide.is-active {
-  opacity: 1;
-}
-
-/* Optional: make nav links look closer to your previous design */
-.hero-ss-link {
-  color: inherit;
-}
-.hero-ss-link:hover {
-  text-decoration: underline;
-}
-
