@@ -732,4 +732,21 @@ a{ color:inherit; }
 
 /* Dots: slightly softer */
 .hero-ss-dot { transition: transform .18s ease, opacity .18s ease, background .18s ease, border-color .18s ease; }
+/* Mobile hero: true "one screen" height (fixes browser UI vh issues) */
+@media (max-width: 1023px){
+  .hero-ss {
+    /* fallback */
+    min-height: 100vh;
+    /* modern mobile browsers */
+    min-height: 100svh; /* stable viewport height */
+    min-height: 100dvh; /* dynamic viewport height */
+  }
+
+  .hero-ss-stage{
+    /* Make the right stage exactly one screen as well */
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+  }
+}
 
