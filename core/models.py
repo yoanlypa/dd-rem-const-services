@@ -6,6 +6,7 @@ from wagtail.models import Page, Orderable, Site
 from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail import blocks
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
 from .blocks import (
     HeroBlock, FeatureBandBlock, PricingBlock, TestimonialsBlock,
@@ -13,11 +14,16 @@ from .blocks import (
 )
 
 
-class SiteChrome(ClusterableModel):
-    site = models.OneToOneField(Site, on_delete=models.CASCADE, related_name="chrome")
-
-    logo_desktop = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
-    logo_mobile = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
+@register_setting
+class SiteChrome(BaseSiteSetting, ClusterableModel):
+    logo_desktop = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="+"
+    )
+    logo_mobile = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="+"
+    )
 
     support_label = models.CharField(max_length=30, blank=True, default="Support 24/7")
     support_phone = models.CharField(max_length=40, blank=True, default="+34 600 000 000")
@@ -26,7 +32,6 @@ class SiteChrome(ClusterableModel):
     show_mobile_support = models.BooleanField(default=True)
 
     panels = [
-        FieldPanel("site"),
         FieldPanel("logo_desktop"),
         FieldPanel("logo_mobile"),
         FieldPanel("support_label"),
@@ -38,8 +43,6 @@ class SiteChrome(ClusterableModel):
 
     def __str__(self):
         return f"SiteChrome ({self.site.hostname})"
-
-
 class NavItem(Orderable):
     chrome = ParentalKey(SiteChrome, related_name="nav_items")
     label = models.CharField(max_length=24)
