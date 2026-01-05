@@ -991,3 +991,42 @@ a{ color:inherit; }
 @media (min-width: 1024px){
   .mnav-header{ display:none; }
 }
+
+.mnav-burger{
+  width: 34px;
+  height: 34px;
+}
+
+.mnav-burger span{
+  width: 16px;
+  height: 2px;
+  opacity: .9;
+}
+.mnav-burger span:nth-child(2){ margin: 3px 0; }
+.mnav-link{
+  letter-spacing: .10em;     /* antes .14em */
+  font-size: 12px;           /* ok */
+  font-weight: 750;          /* baja un poco el “peso” */
+  padding: 10px 2px;
+  opacity: .92;
+}
+
+.mnav-link:hover{
+  opacity: 1;
+}
+.mnav-panel{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .32s ease;
+}
+
+.mnav-list{
+  transform: translateY(-6px);
+  opacity: 0;
+  transition: transform .22s ease, opacity .22s ease;
+}
+
+.mnav-panel.is-open .mnav-list{
+  transform: translateY(0);
+  opacity: 1;
+}
