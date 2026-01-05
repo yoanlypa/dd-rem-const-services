@@ -1030,3 +1030,29 @@ a{ color:inherit; }
   transform: translateY(0);
   opacity: 1;
 }
+
+/* ===== Fix: Mobile nav links invisible (force contrast) ===== */
+.mnav-header,
+.mnav-header *{
+  color: #0b1220;
+}
+
+.mnav-panel{
+  background: #fff;
+}
+
+.mnav-link,
+.mnav-link--a{
+  color: #0b1220 !important;
+  opacity: 1 !important;
+}
+
+.mnav-sublink{
+  color: rgba(11,18,32,.78) !important;
+  opacity: 1 !important;
+}
+
+.mnav-link:hover,
+.mnav-sublink:hover{
+  color: #0b1220 !important;
+}
