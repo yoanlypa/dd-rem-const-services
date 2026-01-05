@@ -32,59 +32,16 @@
         {% endblock %}
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
-        {% wagtailuserbar %}
+<body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
 
-        {% block content %}
-        <header class="mnav-header">
-  <div class="mnav-inner">
-    <a class="mnav-brand" href="/" aria-label="Home">
-      master.builder
-    </a>
+    {% include "core/partials/mobile_menu.html" %}
 
-    <!-- Minimal hamburger -->
-    <button class="mnav-burger" type="button" aria-label="Open menu"
-            aria-expanded="false" data-mobile-menu-toggle>
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+    {% block content %}{% endblock %}
 
-  <!-- Drop panel (opens downward) -->
-  <div class="mnav-panel" data-mobile-menu aria-hidden="true">
-    <nav class="mnav-list" aria-label="Mobile menu">
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/site.js' %}"></script>
+    <script src="{% static 'js/hero_slider.js' %}"></script>
+</body>
 
-      <!-- Item with submenu -->
-      <div class="mnav-item">
-        <button class="mnav-link" type="button" data-submenu-toggle aria-expanded="false">
-          Portfolio
-          <span class="mnav-chevron" aria-hidden="true"></span>
-        </button>
-
-        <div class="mnav-sub" data-submenu aria-hidden="true">
-          <a class="mnav-sublink" href="#">List Types</a>
-          <a class="mnav-sublink" href="#">Portfolio Single</a>
-        </div>
-      </div>
-
-      <!-- Normal item -->
-      <a class="mnav-link mnav-link--a" href="#">Home</a>
-      <a class="mnav-link mnav-link--a" href="#">Pages</a>
-      <a class="mnav-link mnav-link--a" href="#">Shop</a>
-      <a class="mnav-link mnav-link--a" href="#">Landing</a>
-
-    </nav>
-  </div>
-</header>
-
-        {% endblock %}
-
-        {# Global javascript #}
-        <script src="{% static 'js/bootstrap.bundle.min.js' %}" defer></script>
-        <script src="{% static 'js/site.js' %}" defer></script>
-        <script src="{% static 'js/hero_slider.js' %}" defer></script>
-
-        {% block extra_js %}
-        {# Override this in templates to add extra javascript #}
-        {% endblock %}
-    </body>
 </html>
