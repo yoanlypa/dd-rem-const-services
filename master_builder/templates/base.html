@@ -38,8 +38,10 @@
         {% block content %}{% endblock %}
 
         {# Global javascript #}
-        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'js/site.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}" defer></script>
+        <script src="{% static 'js/site.js' %}" defer></script>
+        <script src="{% static 'js/hero_slider.js' %}" defer></script>
+
         {% block extra_js %}
         {# Override this in templates to add extra javascript #}
         {% endblock %}

@@ -3,161 +3,162 @@
 {% get_settings use_default_site=True %}
 {% with chrome=settings.core.SiteChromeSettings %}
 
-<section class="heroSS" id="top"
+<section id="top"
+  class="hero-ss position-relative"
   data-hero-slider
   data-autoplay="{{ self.autoplay|yesno:'1,0' }}"
   data-interval="{{ self.autoplay_seconds|default:6 }}"
 >
- {% if chrome.show_mobile_header %}
-  <header class="mHeader" data-mobile-header>
-    <a class="mHeader__logo" href="/" aria-label="Home">
-      {% if chrome.logo_mobile %}
-        {% image chrome.logo_mobile max-220x80 class="mHeader__img" %}
-      {% elif chrome.logo_desktop %}
-        {% image chrome.logo_desktop max-220x80 class="mHeader__img" %}
-      {% else %}
-        <span class="mHeader__fallback">master.builder</span>
-      {% endif %}
-    </a>
 
-    <button class="mHeader__burger"
-            type="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-            data-burger>
-      <span></span><span></span><span></span>
-    </button>
+  {% if chrome.show_mobile_header %}
+  <header class="d-lg-none border-bottom bg-white position-sticky top-0 z-3" data-mobile-header>
+    <div class="container-fluid py-2 d-flex align-items-center justify-content-between">
+      <a class="d-inline-flex align-items-center text-decoration-none" href="/" aria-label="Home">
+        {% if chrome.logo_mobile %}
+          {% image chrome.logo_mobile max-220x80 class="img-fluid" %}
+        {% elif chrome.logo_desktop %}
+          {% image chrome.logo_desktop max-220x80 class="img-fluid" %}
+        {% else %}
+          <span class="fw-semibold text-dark">master.builder</span>
+        {% endif %}
+      </a>
+
+      <button
+        class="btn btn-outline-secondary"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#mobileMenu"
+        aria-controls="mobileMenu"
+        aria-label="Open menu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
   </header>
 
-  <div class="mDrawer" aria-hidden="true" data-drawer>
-    <div class="mDrawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="mobileMenuLabel">
+        {% if chrome.logo_mobile %}
+          {% image chrome.logo_mobile max-220x80 class="img-fluid" %}
+        {% elif chrome.logo_desktop %}
+          {% image chrome.logo_desktop max-220x80 class="img-fluid" %}
+        {% else %}
+          <span class="fw-semibold">master.builder</span>
+        {% endif %}
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
 
-      <div class="mDrawer__top">
-        <div class="mDrawer__brand">
-          {% if chrome.logo_mobile %}
-            {% image chrome.logo_mobile max-220x80 %}
-          {% elif chrome.logo_desktop %}
-            {% image chrome.logo_desktop max-220x80 %}
-          {% else %}
-            <strong>master.builder</strong>
-          {% endif %}
-        </div>
-        <button class="mDrawer__close"
-                type="button"
-                aria-label="Close menu"
-                data-close>×</button>
-      </div>
-
-      <nav class="mDrawer__nav">
+    <div class="offcanvas-body">
+      <nav class="nav flex-column gap-2">
         {% for block in chrome.navigation %}
-          <a href="{{ block.value.href }}"
-             class="mDrawer__link"
-             data-drawer-link>
+          <a class="nav-link hero-ss-link" href="{{ block.value.href }}">
             {{ block.value.label }}
           </a>
         {% endfor %}
       </nav>
 
-      {% if chrome.show_mobile_support %}
-      <div class="mDrawer__support">
-        <div class="mDrawer__supportLabel">{{ chrome.support_label }}</div>
-        <div class="mDrawer__supportPhone">{{ chrome.support_phone }}</div>
-      </div>
+      {% if chrome.show_mobile_support and chrome.support_phone %}
+        <div class="mt-4 pt-4 border-top">
+          {% if chrome.support_label %}
+            <div class="text-muted small">{{ chrome.support_label }}</div>
+          {% endif %}
+          <div class="fw-semibold">{{ chrome.support_phone }}</div>
+        </div>
       {% endif %}
-
     </div>
-    <div class="mDrawer__backdrop" data-backdrop></div>
   </div>
   {% endif %}
 
- <aside class="heroSS__side" aria-label="Site navigation">
+  <div class="container-fluid px-0">
+    <div class="row g-0">
 
-    <div class="heroSS__brand">
-      {% if chrome.logo_desktop %}
-        {% image chrome.logo_desktop max-240x90 class="heroSS__logo" %}
-      {% else %}
-        <span class="heroSS__brandText">master.builder</span>
-      {% endif %}
-    </div>
+      {# LEFT / SIDEBAR (DESKTOP ONLY) #}
+      <aside class="col-lg-3 d-none d-lg-flex hero-ss-side border-end"
+             style="width:280px;flex:0 0 280px"
+             aria-label="Site navigation">
+        <div class="d-flex flex-column w-100 p-4 p-xl-5">
 
-    <nav class="heroSS__menu">
-      {% for block in chrome.navigation %}
-        <a class="heroSS__link"
-           href="{{ block.value.href }}">
-          {{ block.value.label }}
-        </a>
-      {% endfor %}
-    </nav>
-
-    <div class="heroSS__copy">
-      <h1 class="heroSS__h1">{{ self.headline }}</h1>
-
-      {% if self.subheadline %}
-        <p class="heroSS__p">{{ self.subheadline }}</p>
-      {% endif %}
-
-      {% if self.cta_url %}
-        <a class="btn heroSS__cta"
-           href="{{ self.cta_url }}">
-          {{ self.cta_text }}
-        </a>
-      {% endif %}
-    </div>
-
-    <div class="heroSS__support">
-      <div class="heroSS__supportLabel">{{ chrome.support_label }}</div>
-      <div class="heroSS__supportPhone">{{ chrome.support_phone }}</div>
-    </div>
-
-  </aside>
-  <div class="heroSS__stage" aria-label="Hero image slider">
-
-    <div class="heroSS__slides" data-slides>
-      {% for s in self.slides %}
-        <div class="heroSS__slide"
-             data-slide
-             aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
-          {% image s.image fill-2200x1400 class="heroSS__img" alt=s.alt %}
-          <div class="heroSS__overlay" aria-hidden="true"></div>
-
-          {% if s.eyebrow or s.title %}
-          <div class="heroSS__caption">
-            {% if s.eyebrow %}
-              <div class="heroSS__eyebrow">{{ s.eyebrow }}</div>
-            {% endif %}
-            {% if s.title %}
-              <div class="heroSS__title">{{ s.title }}</div>
+          <div class="mb-4">
+            {% if chrome.logo_desktop %}
+              {% image chrome.logo_desktop max-240x90 class="img-fluid" %}
+            {% elif chrome.logo_mobile %}
+              {% image chrome.logo_mobile max-240x90 class="img-fluid" %}
+            {% else %}
+              <span class="fw-semibold">master.builder</span>
             {% endif %}
           </div>
-          {% endif %}
+
+          <nav class="nav flex-column gap-2">
+            {% for block in chrome.navigation %}
+              <a class="nav-link px-0 hero-ss-link" href="{{ block.value.href }}">
+                {{ block.value.label }}
+              </a>
+            {% endfor %}
+          </nav>
+
         </div>
-      {% endfor %}
-    </div>
+      </aside>
 
-    {% if self.show_arrows %}
-      <button class="heroSS__btn heroSS__btn--prev"
-              type="button"
-              data-prev
-              aria-label="Previous slide">‹</button>
+      {# RIGHT / SLIDER #}
+      <div class="col-lg-9 hero-ss-stage position-relative" aria-label="Hero image slider">
+        <div class="hero-ss-slides h-100" data-slides>
 
-      <button class="heroSS__btn heroSS__btn--next"
-              type="button"
-              data-next
-              aria-label="Next slide">›</button>
-    {% endif %}
+          {% for s in self.slides %}
+          <div
+            class="hero-ss-slide position-absolute top-0 start-0 w-100 h-100 {% if forloop.first %}is-active{% endif %}"
+            data-slide
+            aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+          >
+            {% image s.image fill-2200x1400 class="w-100 h-100 hero-ss-img" alt=s.alt %}
 
-    {% if self.show_dots %}
-      <div class="heroSS__dots" data-dots aria-label="Slide navigation">
-        {% for _ in self.slides %}
-          <button class="heroSS__dot"
-                  type="button"
-                  data-dot
-                  aria-label="Go to slide {{ forloop.counter }}">
+            <div class="hero-ss-overlay position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></div>
+
+            {# OPTIONAL CAPTIONS: controlled by self.show_slide_captions (default: True) #}
+            {% if self.show_slide_captions|default:True %}
+              {% if s.eyebrow or s.title %}
+              <div class="hero-ss-caption position-absolute bottom-0 start-0 p-4 p-lg-5 text-white">
+                {% if s.eyebrow %}
+                  <div class="text-uppercase small opacity-75 mb-2">{{ s.eyebrow }}</div>
+                {% endif %}
+                {% if s.title %}
+                  <div class="h3 h2-lg fw-semibold mb-0">{{ s.title }}</div>
+                {% endif %}
+              </div>
+              {% endif %}
+            {% endif %}
+
+          </div>
+          {% endfor %}
+        </div>
+
+        {% if self.show_arrows %}
+          <button class="btn btn-light hero-ss-btn position-absolute top-50 start-0 translate-middle-y ms-3"
+                  type="button" data-prev aria-label="Previous slide">
+            ‹
           </button>
-        {% endfor %}
-      </div>
-    {% endif %}
+          <button class="btn btn-light hero-ss-btn position-absolute top-50 end-0 translate-middle-y me-3"
+                  type="button" data-next aria-label="Next slide">
+            ›
+          </button>
+        {% endif %}
 
+        {% if self.show_dots %}
+          <div class="hero-ss-dots position-absolute end-0 bottom-0 mb-3 me-3 d-flex gap-2"
+               data-dots aria-label="Slide navigation">
+            {% for _ in self.slides %}
+              <button class="btn hero-ss-dot"
+                      type="button"
+                      data-dot
+                      aria-label="Go to slide {{ forloop.counter }}">
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
   </div>
 
 </section>
