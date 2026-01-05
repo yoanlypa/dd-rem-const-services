@@ -75,9 +75,7 @@
     <div class="row g-0">
 
       {# LEFT / SIDEBAR (DESKTOP ONLY) #}
-      <aside class="col-lg-3 d-none d-lg-flex hero-ss-side border-end"
-             style="width:280px;flex:0 0 280px"
-             aria-label="Site navigation">
+      <aside class="col-auto hero-ss-side"             aria-label="Site navigation">
         <div class="d-flex flex-column w-100 p-4 p-xl-5">
 
           <div class="mb-4">
@@ -102,7 +100,7 @@
       </aside>
 
       {# RIGHT / SLIDER #}
-      <div class="col-lg-9 hero-ss-stage position-relative" aria-label="Hero image slider">
+      <div class="col hero-ss-stage" aria-label="Hero image slider">
         <div class="hero-ss-slides h-100" data-slides>
 
           {% for s in self.slides %}

@@ -661,13 +661,46 @@ a{ color:inherit; }
   .mDrawer__panel, .mDrawer__backdrop{ transition:none; }
   .heroSS__link, .mDrawer__link, .c-btn{ transition:none; }
 }
-
 /* Bootstrap hero split slider (matches hero_split_slider.html) */
-.hero-ss-stage { overflow: hidden; background:#0b1220; }
 
-.hero-ss-slides { position: absolute; inset: 0; }
+/* 1) Force fullscreen height chain (section -> container -> row -> cols) */
+.hero-ss{
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+.hero-ss > .container-fluid,
+.hero-ss > .container-fluid > .row{
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+.hero-ss-side,
+.hero-ss-stage{
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+/* 2) Stage + slides fill */
+.hero-ss-stage{
+  position: relative;
+  overflow: hidden;
+  background:#0b1220;
+}
+
+.hero-ss-slides{
+  position: absolute;
+  inset: 0;
+}
 
 .hero-ss-slide{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   transition: opacity .55s ease;
   pointer-events: none;
@@ -679,21 +712,18 @@ a{ color:inherit; }
 }
 
 .hero-ss-img{
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.hero-ss-overlay{
-  background: rgba(0,0,0,.35);
-}
-
-/* Minimal arrows + dots (avoid your custom .btn look) */
+/* 3) Controls minimal */
 .hero-ss-btn,
 .hero-ss-dot{
-  background: rgba(0,0,0,.18) !important;
+  background: rgba(0,0,0,.22) !important;
   border: 1px solid rgba(255,255,255,.22) !important;
   color: #fff !important;
-  box-shadow: none !important;
 }
 
 .hero-ss-btn{
@@ -726,6 +756,15 @@ a{ color:inherit; }
   opacity: 1;
   transform: scale(1.15);
 }
+
+/* 4) iPhone bottom safe area */
+.hero-ss-caption{
+  padding-bottom: calc(18px + env(safe-area-inset-bottom));
+}
+.hero-ss-dots{
+  bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
 /* Slider: smoother fade + prevent accidental selection */
 .hero-ss-slide { user-select: none; -webkit-user-select: none; }
 .hero-ss-stage { touch-action: pan-y; } /* allow vertical scroll, slider handles horizontal */
@@ -803,84 +842,26 @@ a{ color:inherit; }
 }
 
 
-/* =========================================================
-   HERO SPLIT SLIDER — FORCE FULLSCREEN (desktop + mobile)
-   Fix: Bootstrap row/cols don't inherit height by default
-   ========================================================= */
+/* ==========================================================
+   HERO SPLIT – SIDEBAR WIDTH CONTROL
+   ========================================================== */
 
-/* Fullscreen hero wrapper */
-.hero-ss{
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
-}
+/* Sidebar width */
+.hero-ss-side{
+  width: 300px;             
+  max-width: 340px;
+  min-width: 260px;
 
-/* Make the bootstrap containers stretch to full height */
-.hero-ss > .container-fluid,
-.hero-ss > .container-fluid > .row{
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
-}
+  background: #fff;
+  border-right: 1px solid var(--border);
 
-/* Sidebar and stage must match the hero height */
-.hero-ss-side,
-.hero-ss-stage{
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
-}
-
-/* Stage positioning */
-.hero-ss-stage{
-  position: relative;
-  overflow: hidden;
-}
-
-/* Slides must fill the stage */
-.hero-ss-slides{
-  position: absolute;
-  inset: 0;
-}
-
-.hero-ss-slide{
-  position: absolute;
-  inset: 0;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
-/* Image cover */
-.hero-ss-img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/* Hero fills the rest */
+.hero-ss-stage{
+  flex: 1;
+  min-width: 0;              /* IMPORTANTE para evitar overflow */
 }
-
-/* Keep caption & dots above iPhone safe area */
-.hero-ss-caption{
-  padding-bottom: calc(18px + env(safe-area-inset-bottom));
-}
-
-.hero-ss-dots{
-  bottom: calc(12px + env(safe-area-inset-bottom));
-}
-
-/* If you use a sticky mobile header and want hero below it ONLY on mobile:
-   Uncomment and adjust the header height value.
-*/
-/*
-@media (max-width: 1023px){
-  :root{ --mobile-header-h: 72px; }
-
-  .hero-ss > .container-fluid,
-  .hero-ss > .container-fluid > .row,
-  .hero-ss-side,
-  .hero-ss-stage{
-    min-height: calc(100dvh - var(--mobile-header-h));
-    min-height: calc(100svh - var(--mobile-header-h));
-    min-height: calc(100vh - var(--mobile-header-h));
-  }
-}
-*/
