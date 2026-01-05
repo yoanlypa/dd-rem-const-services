@@ -12,7 +12,7 @@ class ButtonBlock(blocks.StructBlock):
 
 
 class HeroBlock(blocks.StructBlock):
-    headline = blocks.CharBlock(required=True, max_length=80)
+    headline = blocks.CharBlock(required=False, max_length=80)
     subheadline = blocks.TextBlock(required=False, max_length=200)
     primary_button = ButtonBlock(required=False)
 
@@ -159,34 +159,28 @@ class HeroSlideBlock(blocks.StructBlock):
 
 
 class HeroSplitSliderBlock(blocks.StructBlock):
-    brand_text = blocks.CharBlock(required=False, max_length=30, default="master.builder")
 
-    nav_items = blocks.ListBlock(
-        blocks.StructBlock([
-            ("label", blocks.CharBlock(max_length=20)),
-            ("anchor", blocks.CharBlock(max_length=30, help_text="e.g. services, projects, pricing")),
-        ]),
+    show_slide_captions = blocks.BooleanBlock(
         required=False,
-        help_text="Left menu links (anchors without #).",
+        default=True,
+        help_text="Show title and eyebrow text on slider images"
     )
 
-    headline = blocks.CharBlock(required=True, max_length=90)
-    subheadline = blocks.TextBlock(required=False, max_length=220)
+    slides = blocks.ListBlock(
+        blocks.StructBlock([
+            ("image", ImageChooserBlock(required=True)),
+            ("eyebrow", blocks.CharBlock(required=False)),
+            ("title", blocks.CharBlock(required=False)),
+            ("alt", blocks.CharBlock(required=False)),
+        ])
+    )
 
-    cta_text = blocks.CharBlock(required=False, max_length=30, default="Discover")
-    cta_url = blocks.CharBlock(required=False, max_length=200, help_text="URL or #anchor")
-
-    support_label = blocks.CharBlock(required=False, max_length=30, default="Support 24/7")
-    support_phone = blocks.CharBlock(required=False, max_length=40, default="+34 600 000 000")
-
-    slides = blocks.ListBlock(HeroSlideBlock(), min_num=1, max_num=8, required=True)
-    
-    show_arrows = blocks.BooleanBlock(required=False, default=True, help_text="Show prev/next arrows")
-    show_dots = blocks.BooleanBlock(required=False, default=True, help_text="Show dot navigation")
     autoplay = blocks.BooleanBlock(required=False, default=True)
-    autoplay_seconds = blocks.IntegerBlock(required=False, default=6, min_value=3, max_value=12)
+    autoplay_seconds = blocks.IntegerBlock(required=False, default=6)
+    show_arrows = blocks.BooleanBlock(required=False, default=True)
+    show_dots = blocks.BooleanBlock(required=False, default=True)
 
     class Meta:
         template = "core/blocks/hero_split_slider.html"
         icon = "image"
-        label = "Hero (Split + Slider)"
+        label = "Hero Split Slider"
