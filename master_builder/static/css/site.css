@@ -803,49 +803,6 @@ a{ color:inherit; }
 }
 
 
-/* =========================================================
-   MOBILE HERO FIX (iOS safe-area + reduced height)
-   Ensures title/caption is always visible on iPhone & Android
-   ========================================================= */
-
-@media (max-width: 1023px){
-
-  /* 1) Reduce hero height to avoid iOS bottom bar overlap */
-  .hero-ss-stage{
-    /* Safe, tested value for iOS Safari */
-    height: calc(100vh - 140px);
-    overflow: hidden;
-  }
-
-  /* 2) Extra bottom space for caption (safe area aware) */
-  .hero-ss-caption{
-    padding-bottom: calc(16px + env(safe-area-inset-bottom));
-    max-width: min(92vw, 520px);
-  }
-
-  /* 3) Lift dots above iOS bottom bar */
-  .hero-ss-dots{
-    bottom: calc(12px + env(safe-area-inset-bottom));
-  }
-
-  /* 4) Slightly smaller arrows for mobile */
-  .hero-ss-btn{
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-  }
-  .hero-ss-side{
-    display: none;
-    }
-
-}
-
-/* Optional fine tuning for very small phones */
-@media (max-width: 480px){
-  .hero-ss-stage{
-    height: calc(100vh - 180px);
-  }
-}
 
 
 /* ==========================================================
@@ -870,4 +827,39 @@ a{ color:inherit; }
 .hero-ss-stage{
   flex: 1;
   min-width: 0;              /* IMPORTANTE para evitar overflow */
+}
+
+/* =========================================================
+   MOBILE HERO FIX (iOS safe-area + reduced height)
+   Ensures title/caption is always visible on iPhone & Android
+   ========================================================= */
+
+@media (max-width: 1023px){
+
+  /* 1) Reduce hero height to avoid iOS bottom bar overlap */
+  .hero-ss-stage{
+    height: calc(100vh - 180px);
+  }
+
+  /* 2) Extra bottom space for caption (safe area aware) */
+  .hero-ss-caption{
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    max-width: min(92vw, 520px);
+  }
+
+  /* 3) Lift dots above iOS bottom bar */
+  .hero-ss-dots{
+    bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+
+  /* 4) Slightly smaller arrows for mobile */
+  .hero-ss-btn{
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  .hero-ss-side{
+    display: none;
+    }
+
 }
