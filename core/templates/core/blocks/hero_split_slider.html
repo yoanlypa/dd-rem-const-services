@@ -10,66 +10,6 @@
   data-interval="{{ self.autoplay_seconds|default:6 }}"
 >
 
-  {% if chrome.show_mobile_header %}
-  <header class="d-lg-none border-bottom bg-white position-sticky top-0 z-3" data-mobile-header>
-    <div class="container-fluid py-2 d-flex align-items-center justify-content-between">
-      <a class="d-inline-flex align-items-center text-decoration-none" href="/" aria-label="Home">
-        {% if chrome.logo_mobile %}
-          {% image chrome.logo_mobile max-220x80 class="img-fluid" %}
-        {% elif chrome.logo_desktop %}
-          {% image chrome.logo_desktop max-220x80 class="img-fluid" %}
-        {% else %}
-          <span class="fw-semibold text-dark">master.builder</span>
-        {% endif %}
-      </a>
-
-      <button
-        class="btn btn-outline-secondary"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#mobileMenu"
-        aria-controls="mobileMenu"
-        aria-label="Open menu"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </header>
-
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="mobileMenuLabel">
-        {% if chrome.logo_mobile %}
-          {% image chrome.logo_mobile max-220x80 class="img-fluid" %}
-        {% elif chrome.logo_desktop %}
-          {% image chrome.logo_desktop max-220x80 class="img-fluid" %}
-        {% else %}
-          <span class="fw-semibold">master.builder</span>
-        {% endif %}
-      </h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-
-    <div class="offcanvas-body">
-      <nav class="nav flex-column gap-2">
-        {% for block in chrome.navigation %}
-          <a class="nav-link hero-ss-link" href="{{ block.value.href }}">
-            {{ block.value.label }}
-          </a>
-        {% endfor %}
-      </nav>
-
-      {% if chrome.show_mobile_support and chrome.support_phone %}
-        <div class="mt-4 pt-4 border-top">
-          {% if chrome.support_label %}
-            <div class="text-muted small">{{ chrome.support_label }}</div>
-          {% endif %}
-          <div class="fw-semibold">{{ chrome.support_phone }}</div>
-        </div>
-      {% endif %}
-    </div>
-  </div>
-  {% endif %}
 
   <div class="container-fluid px-0">
     <div class="row g-0">

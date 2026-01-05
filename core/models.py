@@ -44,15 +44,27 @@ class SiteChrome(BaseSiteSetting, ClusterableModel):
     def __str__(self):
         return f"SiteChrome ({self.site.hostname})"
 class NavItem(Orderable):
-    chrome = ParentalKey(SiteChrome, related_name="nav_items")
+    chrome = ParentalKey(
+        SiteChrome,
+        related_name="nav_items",
+        on_delete=models.CASCADE,
+    )
     label = models.CharField(max_length=24)
     href = models.CharField(max_length=200)
+
     parent = models.ForeignKey(
         "self",
         null=True,
         blank=True,
         related_name="children",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
+
+    panels = [
+        FieldPanel("label"),
+        FieldPanel("href"),
+        FieldPanel("parent"),
+    ]
+
     def __str__(self):
         return self.label
