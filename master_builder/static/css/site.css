@@ -768,7 +768,9 @@ a{ color:inherit; }
 /* Slider: smoother fade + prevent accidental selection */
 .hero-ss-slide { user-select: none; -webkit-user-select: none; }
 .hero-ss-stage { touch-action: pan-y; } /* allow vertical scroll, slider handles horizontal */
-
+.hero-ss-side{
+  display: block;
+}
 /* Dots: slightly softer */
 .hero-ss-dot { transition: transform .18s ease, opacity .18s ease, background .18s ease, border-color .18s ease; }
 /* Mobile hero: true "one screen" height (fixes browser UI vh issues) */
@@ -832,6 +834,10 @@ a{ color:inherit; }
     height: 40px;
     font-size: 20px;
   }
+  .hero-ss-side{
+    display: none;
+    }
+
 }
 
 /* Optional fine tuning for very small phones */
