@@ -41,15 +41,15 @@ class SiteChrome(ClusterableModel):
 
 
 class NavItem(Orderable):
-    chrome = ParentalKey(SiteChrome, on_delete=models.CASCADE, related_name="nav_items")
-
+    chrome = ParentalKey(SiteChrome, related_name="nav_items")
     label = models.CharField(max_length=24)
-    href = models.CharField(max_length=200, help_text="Use #anchor (e.g. #projects) or /path/ or full URL.")
-
-    panels = [
-        FieldPanel("label"),
-        FieldPanel("href"),
-    ]
-
+    href = models.CharField(max_length=200)
+    parent = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        related_name="children",
+        on_delete=models.CASCADE
+    )
     def __str__(self):
         return self.label

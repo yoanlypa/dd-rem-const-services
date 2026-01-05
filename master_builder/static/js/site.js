@@ -148,3 +148,52 @@
 
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.querySelector("[data-mobile-menu-toggle]");
+  const panel = document.querySelector("[data-mobile-menu]");
+  if (!toggle || !panel) return;
+
+  function openPanel() {
+    toggle.classList.add("is-open");
+    toggle.setAttribute("aria-expanded", "true");
+    panel.setAttribute("aria-hidden", "false");
+    panel.style.maxHeight = panel.scrollHeight + "px";
+  }
+
+  function closePanel() {
+    toggle.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    panel.setAttribute("aria-hidden", "true");
+    panel.style.maxHeight = "0px";
+  }
+
+  toggle.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    if (isOpen) closePanel();
+    else openPanel();
+  });
+
+  // Submenus
+  document.querySelectorAll("[data-submenu-toggle]").forEach((btn) => {
+    const wrap = btn.closest(".mnav-item");
+    const sub = wrap ? wrap.querySelector("[data-submenu]") : null;
+    if (!sub) return;
+
+    btn.addEventListener("click", () => {
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", expanded ? "false" : "true");
+      sub.setAttribute("aria-hidden", expanded ? "true" : "false");
+      sub.style.maxHeight = expanded ? "0px" : sub.scrollHeight + "px";
+
+      // keep outer panel height correct when expanding submenu
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    });
+  });
+
+  // If window resizes, keep maxHeight consistent
+  window.addEventListener("resize", () => {
+    if (toggle.getAttribute("aria-expanded") === "true") {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+});
