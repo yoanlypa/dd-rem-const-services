@@ -801,3 +801,86 @@ a{ color:inherit; }
     height: calc(100vh - 180px);
   }
 }
+
+
+/* =========================================================
+   HERO SPLIT SLIDER — FORCE FULLSCREEN (desktop + mobile)
+   Fix: Bootstrap row/cols don't inherit height by default
+   ========================================================= */
+
+/* Fullscreen hero wrapper */
+.hero-ss{
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+/* Make the bootstrap containers stretch to full height */
+.hero-ss > .container-fluid,
+.hero-ss > .container-fluid > .row{
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+/* Sidebar and stage must match the hero height */
+.hero-ss-side,
+.hero-ss-stage{
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+/* Stage positioning */
+.hero-ss-stage{
+  position: relative;
+  overflow: hidden;
+}
+
+/* Slides must fill the stage */
+.hero-ss-slides{
+  position: absolute;
+  inset: 0;
+}
+
+.hero-ss-slide{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Image cover */
+.hero-ss-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Keep caption & dots above iPhone safe area */
+.hero-ss-caption{
+  padding-bottom: calc(18px + env(safe-area-inset-bottom));
+}
+
+.hero-ss-dots{
+  bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+/* If you use a sticky mobile header and want hero below it ONLY on mobile:
+   Uncomment and adjust the header height value.
+*/
+/*
+@media (max-width: 1023px){
+  :root{ --mobile-header-h: 72px; }
+
+  .hero-ss > .container-fluid,
+  .hero-ss > .container-fluid > .row,
+  .hero-ss-side,
+  .hero-ss-stage{
+    min-height: calc(100dvh - var(--mobile-header-h));
+    min-height: calc(100svh - var(--mobile-header-h));
+    min-height: calc(100vh - var(--mobile-header-h));
+  }
+}
+*/
