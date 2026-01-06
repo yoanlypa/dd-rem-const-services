@@ -18,8 +18,6 @@ class NavItemBlock(blocks.StructBlock):
         icon = "link"
         label = "Navigation item"
 
-
-@register_setting
 class SiteChromeSettings(BaseSiteSetting):
     logo_desktop = models.ForeignKey(
         Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
