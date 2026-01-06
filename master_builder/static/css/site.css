@@ -1251,3 +1251,39 @@ a{ color:inherit; }
   padding: 9px 10px;
   letter-spacing: .12em;
 }
+
+
+
+
+
+/* =====================================
+   HERO Split Slider – responsive grid
+   ===================================== */
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .heroSS {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+  }
+}
+
+/* Tablet + mobile */
+@media (max-width: 1023px) {
+  .heroSS {
+    display: block;   /* ← clave */
+    min-height: auto;
+  }
+
+  .heroSS__side {
+    display: none;    /* sidebar fuera */
+  }
+
+  .heroSS__stage {
+    height: 70vh;     /* altura controlada */
+    min-height: 420px;
+    max-height: 680px;
+  }
+}
+
