@@ -154,26 +154,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const list = panel.querySelector(".mnav-list");
 
-  function openPanel() {
-    toggle.classList.add("is-open");
-    toggle.setAttribute("aria-expanded", "true");
-    panel.setAttribute("aria-hidden", "false");
+function openPanel() {
+  toggle.setAttribute("aria-expanded", "true");
+  panel.setAttribute("aria-hidden", "false");
+  panel.classList.add("is-open");
+  panel.style.maxHeight = panel.scrollHeight + "px";
+}
 
-    // This class drives the CSS animation for opacity/transform
-    panel.classList.add("is-open");
-
-    // Ensure the panel can expand smoothly
-    panel.style.maxHeight = panel.scrollHeight + "px";
-  }
-
-  function closePanel() {
-    toggle.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
-    panel.setAttribute("aria-hidden", "true");
-
-    panel.classList.remove("is-open");
-    panel.style.maxHeight = "0px";
-  }
+function closePanel() {
+  toggle.setAttribute("aria-expanded", "false");
+  panel.setAttribute("aria-hidden", "true");
+  panel.classList.remove("is-open");
+  panel.style.maxHeight = "0px";
+}
 
   toggle.addEventListener("click", () => {
     const isOpen = toggle.getAttribute("aria-expanded") === "true";
