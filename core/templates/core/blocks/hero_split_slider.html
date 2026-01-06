@@ -33,9 +33,9 @@
       {% endfor %}
     </nav>
     {% endif %}
-
-    {# Optional support block (only if enabled AND has content) #}
-    {% if chrome.show_mobile_support and (chrome.support_label or chrome.support_phone) %}
+  
+  {% if chrome.show_mobile_support %}
+    {% if chrome.support_label or chrome.support_phone %}
       <div class="heroSS__support" aria-label="Support">
         {% if chrome.support_label %}
           <div class="heroSS__supportLabel">{{ chrome.support_label }}</div>
@@ -45,6 +45,8 @@
         {% endif %}
       </div>
     {% endif %}
+  {% endif %}
+
 
   </aside>
 
