@@ -147,16 +147,22 @@
 })();
 
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.querySelector("[data-mobile-menu-toggle]");
   const panel = document.querySelector("[data-mobile-menu]");
   if (!toggle || !panel) return;
 
+  const list = panel.querySelector(".mnav-list");
+
   function openPanel() {
     toggle.classList.add("is-open");
     toggle.setAttribute("aria-expanded", "true");
     panel.setAttribute("aria-hidden", "false");
+
+    // This class drives the CSS animation for opacity/transform
+    panel.classList.add("is-open");
+
+    // Ensure the panel can expand smoothly
     panel.style.maxHeight = panel.scrollHeight + "px";
   }
 
@@ -164,6 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.classList.remove("is-open");
     toggle.setAttribute("aria-expanded", "false");
     panel.setAttribute("aria-hidden", "true");
+
+    panel.classList.remove("is-open");
     panel.style.maxHeight = "0px";
   }
 
@@ -173,7 +181,24 @@ document.addEventListener("DOMContentLoaded", () => {
     else openPanel();
   });
 
-  // Submenus
+  // Close when clicking outside the panel (optional but recommended)
+  document.addEventListener("click", (e) => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    if (!isOpen) return;
+
+    const clickedInside = panel.contains(e.target) || toggle.contains(e.target);
+    if (!clickedInside) closePanel();
+  });
+
+  // Keep height correct on resize (important for iOS)
+  window.addEventListener("resize", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    if (isOpen) {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+
+  // Submenus (only if you have them in HTML)
   document.querySelectorAll("[data-submenu-toggle]").forEach((btn) => {
     const wrap = btn.closest(".mnav-item");
     const sub = wrap ? wrap.querySelector("[data-submenu]") : null;
@@ -185,15 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
       sub.setAttribute("aria-hidden", expanded ? "true" : "false");
       sub.style.maxHeight = expanded ? "0px" : sub.scrollHeight + "px";
 
-      // keep outer panel height correct when expanding submenu
+      // Recalculate outer panel height when a submenu opens/closes
       panel.style.maxHeight = panel.scrollHeight + "px";
     });
-  });
-
-  // If window resizes, keep maxHeight consistent
-  window.addEventListener("resize", () => {
-    if (toggle.getAttribute("aria-expanded") === "true") {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    }
   });
 });
