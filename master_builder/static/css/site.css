@@ -5,6 +5,7 @@
 @import "components/navbar.css";
 @import "components/hero-split.css";
 @import "components/footer.css";
+@import "components/hero-split-slider.css";
 
 /* Legacy (solo si todavía hay bloques que lo usan) */
 @import "legacy/legacy-header.css";
