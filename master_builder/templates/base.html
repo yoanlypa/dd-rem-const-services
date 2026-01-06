@@ -34,8 +34,62 @@
 
 <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
+        {% load wagtailsettings_tags wagtailimages_tags %}
+        {% get_settings use_default_site=True %}
+        {% with chrome=settings.core.SiteChrome %}
 
-    {% include "core/partials/mobile_menu.html" %}
+        <header class="siteNav" role="banner">
+        <div class="siteNav__inner">
+            <a class="siteNav__brand" href="/" aria-label="Home">
+            {% if chrome.logo_mobile %}
+                {% image chrome.logo_mobile max-220x80 class="siteNav__logo" %}
+            {% elif chrome.logo_desktop %}
+                {% image chrome.logo_desktop max-220x80 class="siteNav__logo" %}
+            {% else %}
+                <span class="siteNav__brandText">master.builder</span>
+            {% endif %}
+            </a>
+
+            <!-- Desktop nav -->
+            <nav class="siteNav__desktop c-nav c-nav--row" aria-label="Primary">
+            <div class="c-nav__list">
+                {% for item in chrome.nav_items.all %}
+                <a class="c-nav__link" href="{{ item.href }}">{{ item.label }}</a>
+                {% endfor %}
+            </div>
+            </nav>
+
+            <!-- Mobile burger -->
+            <button class="siteNav__burger"
+                    type="button"
+                    aria-label="Menu"
+                    aria-expanded="false"
+                    data-sitenav-burger>
+            <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <!-- Mobile dropdown panel -->
+        <div class="siteNav__panel" data-sitenav-panel>
+            <div class="siteNav__panelInner c-nav c-nav--col c-nav--compact" aria-label="Mobile navigation">
+            {% for item in chrome.nav_items.all %}
+                <a class="c-nav__link" href="{{ item.href }}">{{ item.label }}</a>
+            {% endfor %}
+
+            {% if chrome.show_mobile_support and chrome.support_phone %}
+                <div class="siteNav__support">
+                {% if chrome.support_label %}
+                    <div class="siteNav__supportLabel">{{ chrome.support_label }}</div>
+                {% endif %}
+                <div class="siteNav__supportPhone">{{ chrome.support_phone }}</div>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+        </header>
+
+        {% endwith %}
+
 
     {% block content %}{% endblock %}
 

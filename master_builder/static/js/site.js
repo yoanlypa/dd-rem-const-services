@@ -208,3 +208,42 @@ function closePanel() {
     });
   });
 });
+(function () {
+  const burger = document.querySelector("[data-sitenav-burger]");
+  const panel = document.querySelector("[data-sitenav-panel]");
+
+  if (!burger || !panel) return;
+
+  function openPanel() {
+    panel.classList.add("is-open");
+    // Max height dinámico para animación
+    panel.style.maxHeight = panel.scrollHeight + "px";
+    burger.setAttribute("aria-expanded", "true");
+  }
+
+  function closePanel() {
+    panel.classList.remove("is-open");
+    panel.style.maxHeight = "0px";
+    burger.setAttribute("aria-expanded", "false");
+  }
+
+  burger.addEventListener("click", () => {
+    const isOpen = panel.classList.contains("is-open");
+    if (isOpen) closePanel();
+    else openPanel();
+  });
+
+  // Cerrar al cambiar tamaño a desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 992) closePanel();
+    else if (panel.classList.contains("is-open")) {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+
+  // Cerrar al click en un link
+  panel.addEventListener("click", (e) => {
+    const a = e.target.closest("a");
+    if (a) closePanel();
+  });
+})();

@@ -3,49 +3,45 @@
 {% get_settings use_default_site=True %}
 {% with chrome=settings.core.SiteChrome %}
 
-<section class="heroSS" id="top"
-  data-hero-slider
-  data-autoplay="{{ self.autoplay|yesno:'1,0' }}"
-  data-interval="{{ self.autoplay_seconds|default:6 }}"
->
+<section class="heroSS" id="top" data-hero-slider data-autoplay="{{ self.autoplay|yesno:'1,0' }}"
+  data-interval="{{ self.autoplay_seconds|default:6 }}">
   {# Desktop sidebar only (mobile keeps your global navbar in base.html) #}
   <aside class="heroSS__side" aria-label="Site navigation">
 
     <div class="heroSS__brand">
       <a class="heroSS__brandLink" href="/" aria-label="Home">
         {% if chrome.logo_desktop %}
-          {% image chrome.logo_desktop max-220x80 class="heroSS__logo" %}
+        {% image chrome.logo_desktop max-220x80 class="heroSS__logo" %}
         {% elif chrome.logo_mobile %}
-          {% image chrome.logo_mobile max-220x80 class="heroSS__logo" %}
+        {% image chrome.logo_mobile max-220x80 class="heroSS__logo" %}
         {% else %}
-          <span class="heroSS__brandText">master.builder</span>
+        <span class="heroSS__brandText">master.builder</span>
         {% endif %}
       </a>
     </div>
 
     {% if chrome.nav_items.all %}
-    <nav class="heroSS__menu" aria-label="Primary navigation">
-      {% for item in chrome.nav_items.all %}
-        {# If you later implement submenus, filter parent==None here #}
-        <a class="heroSS__link" href="{{ item.href }}">
-          {{ item.label }}
-        </a>
-      {% endfor %}
+    <nav class="c-nav c-nav--col">
+      <div class="c-nav__list">
+        {% for block in chrome.nav_items.all %}
+        <a class="c-nav__link" href="{{ block.href }}">{{ block.label }}</a>
+        {% endfor %}
+      </div>
     </nav>
     {% endif %}
-  
-  {% if chrome.show_mobile_support %}
+
+    {% if chrome.show_mobile_support %}
     {% if chrome.support_label or chrome.support_phone %}
-      <div class="heroSS__support" aria-label="Support">
-        {% if chrome.support_label %}
-          <div class="heroSS__supportLabel">{{ chrome.support_label }}</div>
-        {% endif %}
-        {% if chrome.support_phone %}
-          <div class="heroSS__supportPhone">{{ chrome.support_phone }}</div>
-        {% endif %}
-      </div>
+    <div class="heroSS__support" aria-label="Support">
+      {% if chrome.support_label %}
+      <div class="heroSS__supportLabel">{{ chrome.support_label }}</div>
+      {% endif %}
+      {% if chrome.support_phone %}
+      <div class="heroSS__supportPhone">{{ chrome.support_phone }}</div>
+      {% endif %}
+    </div>
     {% endif %}
-  {% endif %}
+    {% endif %}
 
 
   </aside>
@@ -54,51 +50,42 @@
 
     <div class="heroSS__slides" data-slides>
       {% for s in self.slides %}
-        <div class="heroSS__slide {% if forloop.first %}is-active{% endif %}"
-             data-slide
-             aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+      <div class="heroSS__slide {% if forloop.first %}is-active{% endif %}" data-slide
+        aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
 
-          {% image s.image fill-2200x1400 class="heroSS__img" alt=s.alt %}
+        {% image s.image fill-2200x1400 class="heroSS__img" alt=s.alt %}
 
-          <div class="heroSS__overlay" aria-hidden="true"></div>
+        <div class="heroSS__overlay" aria-hidden="true"></div>
 
-          {# Caption is optional per slide #}
-          {% if s.eyebrow or s.title %}
-            <div class="heroSS__caption">
-              {% if s.eyebrow %}
-                <div class="heroSS__eyebrow">{{ s.eyebrow }}</div>
-              {% endif %}
-              {% if s.title %}
-                <div class="heroSS__title">{{ s.title }}</div>
-              {% endif %}
-            </div>
+        {# Caption is optional per slide #}
+        {% if s.eyebrow or s.title %}
+        <div class="heroSS__caption">
+          {% if s.eyebrow %}
+          <div class="heroSS__eyebrow">{{ s.eyebrow }}</div>
+          {% endif %}
+          {% if s.title %}
+          <div class="heroSS__title">{{ s.title }}</div>
           {% endif %}
         </div>
+        {% endif %}
+      </div>
       {% endfor %}
     </div>
 
     {% if self.show_arrows %}
-      <button class="heroSS__btn heroSS__btn--prev"
-              type="button"
-              data-prev
-              aria-label="Previous slide">‹</button>
+    <button class="heroSS__btn heroSS__btn--prev" type="button" data-prev aria-label="Previous slide">‹</button>
 
-      <button class="heroSS__btn heroSS__btn--next"
-              type="button"
-              data-next
-              aria-label="Next slide">›</button>
+    <button class="heroSS__btn heroSS__btn--next" type="button" data-next aria-label="Next slide">›</button>
     {% endif %}
 
     {% if self.show_dots %}
-      <div class="heroSS__dots" data-dots aria-label="Slide navigation">
-        {% for _ in self.slides %}
-          <button class="heroSS__dot {% if forloop.first %}is-active{% endif %}"
-                  type="button"
-                  data-dot
-                  aria-label="Go to slide {{ forloop.counter }}">
-          </button>
-        {% endfor %}
-      </div>
+    <div class="heroSS__dots" data-dots aria-label="Slide navigation">
+      {% for _ in self.slides %}
+      <button class="heroSS__dot {% if forloop.first %}is-active{% endif %}" type="button" data-dot
+        aria-label="Go to slide {{ forloop.counter }}">
+      </button>
+      {% endfor %}
+    </div>
     {% endif %}
 
   </div>

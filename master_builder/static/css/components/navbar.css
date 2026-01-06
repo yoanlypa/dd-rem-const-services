@@ -1,3 +1,98 @@
+/* ===========================
+   Unified Navigation (global)
+   One source of truth for nav links
+   =========================== */
+
+/* Base nav layout */
+.c-nav__list{
+  display:flex;
+  gap: 6px;
+  align-items:center;
+}
+
+/* Layout modifiers */
+.c-nav--row .c-nav__list{ flex-direction: row; }
+.c-nav--col .c-nav__list{
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+/* Base link style (shared everywhere) */
+.c-nav__link{
+  position: relative;
+  text-decoration: none;
+
+  color: rgba(11,18,32,.84);
+  font-weight: 750;
+  font-size: 13px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+
+  padding: 9px 12px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+
+.c-nav__link:hover{
+  background: rgba(37,99,235,.08);
+  color: rgba(11,18,32,1);
+  transform: translateY(-1px);
+}
+
+.c-nav__link:focus-visible{
+  outline:none;
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+/* Underline accent (desktop + sidebar) */
+.c-nav__link::after{
+  content:"";
+  position:absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 7px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand), transparent 90%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .22s ease;
+  opacity: .8;
+}
+.c-nav__link:hover::after{ transform: scaleX(1); }
+
+/* Active state (optional) */
+.c-nav__link.is-active{
+  background: rgba(37,99,235,.10);
+  color: rgba(11,18,32,1);
+}
+
+/* Compact variant (mobile panel) */
+.c-nav--compact .c-nav__link{
+  padding: 10px 10px;
+  border-radius: 12px;
+  letter-spacing: .02em;
+  text-transform: none;
+  font-size: 14px;
+}
+.c-nav--compact .c-nav__link:hover{
+  transform: translateX(2px);
+}
+.c-nav--compact .c-nav__link::after{
+  display:none;
+}
+
+/* ===========================
+   Site Navbar wrapper styles
+   (layout only; link styles come from c-nav)
+   =========================== */
+
 .siteNav{
   position: sticky;
   top: 0;
@@ -25,57 +120,17 @@
   color: var(--ink);
 }
 
-.siteNav__logo{ display:block; height:auto; max-height:42px; width:auto; }
-.siteNav__brandText{ font-weight: 950; letter-spacing: .01em; }
-
-/* Desktop links */
-.siteNav__links{
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.siteNav__logo{
+  display:block;
+  height:auto;
+  max-height:42px;
+  width:auto;
 }
 
-.siteNav__link{
-  position: relative;
-  text-decoration: none;
-  color: rgba(11,18,32,.84);
-  font-weight: 750;
-  font-size: 13px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-
-  padding: 9px 12px;
-  border-radius: 999px;
-
-  transition: background .18s ease, color .18s ease, transform .18s ease;
+.siteNav__brandText{
+  font-weight: 950;
+  letter-spacing: .01em;
 }
-
-.siteNav__link:hover{
-  background: rgba(37,99,235,.08);
-  color: rgba(11,18,32,1);
-  transform: translateY(-1px);
-}
-
-.siteNav__link:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 4px var(--ring);
-}
-
-.siteNav__link::after{
-  content:"";
-  position:absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 7px;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--brand), transparent 90%);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .22s ease;
-  opacity: .8;
-}
-.siteNav__link:hover::after{ transform: scaleX(1); }
 
 /* Mobile burger */
 .siteNav__burger{
@@ -99,7 +154,7 @@
 }
 .siteNav__burger span:nth-child(2){ margin: 3px 0; }
 
-/* Mobile dropdown */
+/* Mobile dropdown panel */
 .siteNav__panel{
   max-height: 0;
   overflow: hidden;
@@ -126,25 +181,6 @@
   transform: translateY(0);
 }
 
-.siteNav__mLink{
-  text-decoration: none;
-  color: rgba(11,18,32,.92);
-  font-weight: 750;
-  font-size: 14px;
-  letter-spacing: .02em;
-  text-transform: none;
-
-  padding: 10px 10px;
-  border-radius: 12px;
-
-  transition: background .18s ease, transform .18s ease;
-}
-.siteNav__mLink:hover{
-  background: rgba(37,99,235,.08);
-  transform: translateX(2px);
-}
-
-/* Optional support */
 .siteNav__support{
   margin-top: 10px;
   padding-top: 12px;
@@ -164,8 +200,11 @@
   color: rgba(11,18,32,.92);
 }
 
-/* Responsive */
+/* Responsive behavior */
 @media (max-width: 992px){
-  .siteNav__links{ display:none; }
+  .siteNav__desktop{ display:none; }
   .siteNav__burger{ display:grid; }
+}
+@media (min-width: 993px){
+  .siteNav__panel{ display:none; }
 }
