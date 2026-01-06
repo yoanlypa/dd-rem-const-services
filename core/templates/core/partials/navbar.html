@@ -1,0 +1,54 @@
+{% load wagtailimages_tags wagtailsettings_tags %}
+{% get_settings use_default_site=True %}
+{% with chrome=settings.core.SiteChrome %}
+
+<header class="siteNav" role="banner">
+  <div class="siteNav__inner">
+
+    <!-- Brand -->
+    <a class="siteNav__brand" href="/" aria-label="Home">
+      {% if chrome.logo_desktop %}
+        {% image chrome.logo_desktop max-200x60 class="siteNav__logo" %}
+      {% elif chrome.logo_mobile %}
+        {% image chrome.logo_mobile max-200x60 class="siteNav__logo" %}
+      {% else %}
+        <span class="siteNav__brandText">master.builder</span>
+      {% endif %}
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="siteNav__links" aria-label="Primary navigation">
+      {% for item in chrome.nav_items.all %}
+        <a class="siteNav__link" href="{{ item.href }}">{{ item.label }}</a>
+      {% endfor %}
+    </nav>
+
+    <!-- Mobile burger -->
+    <button
+      class="siteNav__burger"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      data-mobile-menu-toggle>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div class="siteNav__panel" data-mobile-menu aria-hidden="true">
+    <nav class="siteNav__panelInner" aria-label="Mobile navigation">
+      {% for item in chrome.nav_items.all %}
+        <a class="siteNav__mLink" href="{{ item.href }}">{{ item.label }}</a>
+      {% endfor %}
+
+      {% if chrome.show_mobile_support %}
+      <div class="siteNav__support">
+        <div class="siteNav__supportLabel">{{ chrome.support_label }}</div>
+        <div class="siteNav__supportPhone">{{ chrome.support_phone }}</div>
+      </div>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+{% endwith %}
