@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root{
   /* Brand (bluish) */
   --bg: #f6f8ff;
@@ -1381,3 +1382,17 @@ a{ color:inherit; }
   font-weight: 900;
 }
 
+=======
+@import "base/variables.css";
+@import "base/base.css";
+@import "base/buttons.css";
+
+@import "components/navbar.css";
+@import "components/hero-split.css";
+@import "components/footer.css";
+
+/* Legacy (solo si todavía hay bloques que lo usan) */
+@import "legacy/legacy-header.css";
+@import "legacy/legacy-hero-collage.css";
+/* @import "legacy/legacy-mobile-drawer.css"; */ /* descomentarlo solo si lo sigues usando */
+>>>>>>> 8ea8769 (split site.css)
