@@ -202,9 +202,10 @@
 
 /* Responsive behavior */
 @media (max-width: 992px){
-  .siteNav{ display:none; }
+  .siteNav__desktop{ display:none; }
   .siteNav__burger{ display:grid; }
 }
 @media (min-width: 993px){
+  .siteNav{ display:none; }
   .siteNav__panel{ display:none; }
 }
