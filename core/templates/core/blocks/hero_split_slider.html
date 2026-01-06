@@ -5,46 +5,6 @@
 
 <section class="heroSS" id="top" data-hero-slider data-autoplay="{{ self.autoplay|yesno:'1,0' }}"
   data-interval="{{ self.autoplay_seconds|default:6 }}">
-  {# Desktop sidebar only (mobile keeps your global navbar in base.html) #}
-  <aside class="heroSS__side" aria-label="Site navigation">
-
-    <div class="heroSS__brand">
-      <a class="heroSS__brandLink" href="/" aria-label="Home">
-        {% if chrome.logo_desktop %}
-        {% image chrome.logo_desktop max-220x80 class="heroSS__logo" %}
-        {% elif chrome.logo_mobile %}
-        {% image chrome.logo_mobile max-220x80 class="heroSS__logo" %}
-        {% else %}
-        <span class="heroSS__brandText">master.builder</span>
-        {% endif %}
-      </a>
-    </div>
-
-    {% if chrome.nav_items.all %}
-    <nav class="c-nav c-nav--col">
-      <div class="c-nav__list">
-        {% for block in chrome.nav_items.all %}
-        <a class="c-nav__link" href="{{ block.href }}">{{ block.label }}</a>
-        {% endfor %}
-      </div>
-    </nav>
-    {% endif %}
-
-    {% if chrome.show_mobile_support %}
-    {% if chrome.support_label or chrome.support_phone %}
-    <div class="heroSS__support" aria-label="Support">
-      {% if chrome.support_label %}
-      <div class="heroSS__supportLabel">{{ chrome.support_label }}</div>
-      {% endif %}
-      {% if chrome.support_phone %}
-      <div class="heroSS__supportPhone">{{ chrome.support_phone }}</div>
-      {% endif %}
-    </div>
-    {% endif %}
-    {% endif %}
-
-
-  </aside>
 
   <div class="heroSS__stage" aria-label="Hero image slider">
 
