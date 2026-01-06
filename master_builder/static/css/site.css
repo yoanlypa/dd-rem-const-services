@@ -1057,9 +1057,15 @@ a{ color:inherit; }
   color: #0b1220 !important;
 }
 
-/* Hard fix: ensure mobile menu items are visible */
-.mnav-panel .mnav-list{
-  opacity: 1 !important;
-  transform: none !important;
+/* Animate list only when panel is open */
+.mnav-list{
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: transform .22s ease, opacity .22s ease;
+}
+
+.mnav-panel.is-open .mnav-list{
+  opacity: 1;
+  transform: translateY(0);
 }
 
