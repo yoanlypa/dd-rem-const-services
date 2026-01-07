@@ -282,3 +282,46 @@
   }
 }
  
+
+/* ===== Hero Split Slider (layout) ===== */
+.heroSS{
+  width: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: var(--home-sidebar-w) minmax(0, 1fr); /* clave: minmax(0,1fr) */
+  min-height: calc(100vh - var(--home-header-h));
+  background: var(--bg, #f6f7fb);
+}
+
+/* Sidebar fijo */
+.heroSS__side{
+  width: var(--home-sidebar-w); /* opcional, pero útil */
+  background:#fff;
+  border-right:1px solid rgba(15,23,42,.08);
+  display:flex;
+  flex-direction:column;
+}
+
+/* Stage ocupa TODO lo restante */
+.heroSS__stage{
+  min-width: 0;           /* clave para que el 1fr no se “encoj*” */
+  position: relative;
+  overflow: hidden;
+  background: #0b1220;
+}
+
+
+@media (max-width: 980px){
+  .heroSS{
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .heroSS__stage{
+    min-height: 56vh;
+  }
+
+  .heroSS__side{
+    width: auto;
+  }
+}
