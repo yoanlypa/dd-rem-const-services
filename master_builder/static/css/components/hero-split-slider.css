@@ -325,25 +325,27 @@
     width: auto;
   }
 }
-/* Layout robusto: sidebar fijo, stage = resto */
+
+
+
+/* GRID: 1ra columna sidebar fijo, 2da columna ocupa todo lo demás */
 .heroSS{
   width: 100%;
   max-width: 100%;
   display: grid;
-  grid-template-columns: var(--home-sidebar-w) minmax(0, 1fr);
-  min-height: calc(100vh - var(--home-header-h));
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  min-height: calc(100vh - var(--header-height));
 }
 
-/* Sidebar: fija el ancho real */
+/* Sidebar: fijo */
 .heroSS__side{
-  width: var(--home-sidebar-w);
-  max-width: var(--home-sidebar-w);
-  flex: 0 0 var(--home-sidebar-w);
+  width: var(--sidebar-width);
+  max-width: var(--sidebar-width);
 }
 
-/* Stage: NO puede tener width fijo */
+/* Stage: ocupa el resto (NUNCA 247px) */
 .heroSS__stage{
-  width: auto !important;        /* mata cualquier width:360px */
-  max-width: none !important;    /* mata cualquier max-width */
-  min-width: 0 !important;       /* evita encogimiento raro */
+  width: 100% !important;     /* fuerza ocupar su columna */
+  max-width: none !important;
+  min-width: 0 !important;
 }

@@ -22,7 +22,7 @@
   --dur-fast: .18s;
   --dur: .32s;
 
-  --home-sidebar-w: 247px; /* tu valor real */
-  --home-header-h: 76px;
+  --sidebar-width: 247px;   /* SOLO sidebar */
+  --header-height: 76px;    /* header desktop si aplica */
 
 }
