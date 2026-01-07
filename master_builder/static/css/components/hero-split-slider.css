@@ -328,24 +328,24 @@
 
 
 
-/* GRID: 1ra columna sidebar fijo, 2da columna ocupa todo lo demás */
+
 .heroSS{
+  display: flex;
   width: 100%;
   max-width: 100%;
-  display: grid;
-  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-h));
 }
 
-/* Sidebar: fijo */
+/* Sidebar fijo */
 .heroSS__side{
-  width: var(--sidebar-width);
-  max-width: var(--sidebar-width);
+  flex: 0 0 var(--sidebar-w);
+  width: var(--sidebar-w);
+  max-width: var(--sidebar-w);
 }
 
-/* Stage: ocupa el resto (NUNCA 247px) */
+/* Stage ocupa el resto */
 .heroSS__stage{
-  width: 100% !important;     /* fuerza ocupar su columna */
-  max-width: none !important;
-  min-width: 0 !important;
+  flex: 1 1 auto;
+  min-width: 0;            /* clave para no encoger raro */
+  width: auto;
 }
