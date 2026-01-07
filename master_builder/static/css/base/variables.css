@@ -22,7 +22,7 @@
   --dur-fast: .18s;
   --dur: .32s;
 
-  --home-sidebar-w: 360px;   /* ancho default */
-  --home-header-h: 76px;     /* si en desktop tienes navbar fijo */
+  --home-sidebar-w: 247px; /* tu valor real */
+  --home-header-h: 76px;
 
 }

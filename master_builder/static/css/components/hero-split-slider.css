@@ -325,3 +325,25 @@
     width: auto;
   }
 }
+/* Layout robusto: sidebar fijo, stage = resto */
+.heroSS{
+  width: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: var(--home-sidebar-w) minmax(0, 1fr);
+  min-height: calc(100vh - var(--home-header-h));
+}
+
+/* Sidebar: fija el ancho real */
+.heroSS__side{
+  width: var(--home-sidebar-w);
+  max-width: var(--home-sidebar-w);
+  flex: 0 0 var(--home-sidebar-w);
+}
+
+/* Stage: NO puede tener width fijo */
+.heroSS__stage{
+  width: auto !important;        /* mata cualquier width:360px */
+  max-width: none !important;    /* mata cualquier max-width */
+  min-width: 0 !important;       /* evita encogimiento raro */
+}
